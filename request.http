@@ -1,0 +1,95 @@
+@baseUrl = http://localhost:3000
+@apiKey = rahasia123456
+
+### Daftar semua menu: 200
+GET {{baseUrl}}/menu
+
+### Daftar menu cemilan: 200
+GET {{baseUrl}}/menu?kategori=cemilan
+
+### Detail 1 menu: 200
+GET {{baseUrl}}/menu/2
+
+### Detail menu yang tidak ada: 404
+GET {{baseUrl}}/menu/99
+
+### URL tidak tersedia: 404
+GET {{baseUrl}}/xyz
+
+### Tambah menu baru: 201
+POST {{baseUrl}}/menu
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{ 
+    "nama": "Nasi Puyung", 
+    "harga": 15000, 
+    "kategori": "makanan", 
+    "tersedia": true 
+}
+
+### Tambah menu tanpa api-key: 401
+POST {{baseUrl}}/menu
+Content-Type: application/json
+
+{ 
+    "nama": "Nasi Puyung", 
+    "harga": 15000, 
+    "kategori": "makanan", 
+    "tersedia": true 
+}
+
+### Tambah menu input salah: 422
+POST {{baseUrl}}/menu
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{  
+    "harga": -2000, 
+    "kategori": "makanan", 
+    "tersedia": true 
+}
+
+### Tambah menu baru dengan nama sama: 409
+POST {{baseUrl}}/menu
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{ 
+    "nama": "Es Teh", 
+    "harga": 7000, 
+    "kategori": "minuman", 
+    "tersedia": true 
+}
+
+### Hapus menu baru: 204
+DELETE {{baseUrl}}/menu/2
+x-api-key: {{apiKey}}
+
+### Hapus menu ghoib: 404
+DELETE {{baseUrl}}/menu/99
+x-api-key: {{apiKey}}
+
+### Edit menu: 200
+PUT {{baseUrl}}/menu/2
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{ 
+    "nama": "Mie Ayam", 
+    "harga": 20000, 
+    "kategori": "makanan", 
+    "tersedia": true 
+}
+
+### Edit menu: 200
+PUT {{baseUrl}}/menu/99
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{ 
+    "nama": "Mie Ayam", 
+    "harga": 20000, 
+    "kategori": "makanan", 
+    "tersedia": true 
+}
